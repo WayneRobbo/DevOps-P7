@@ -63,4 +63,31 @@ public class StepDefinitions {
         Assert.assertEquals(expectedResult, actualResult,0);
         System.out.println("The new final balance is: " + actualResult);
     }
+
+    // Additions to CA
+    @Given("Danny has a starting balance of {int}")
+    public void danny_has_a_starting_balance_of(Integer initialBalance) {
+        System.out.println("Give the Danny has starting balance of: " + initialBalance);
+        //Act
+        danny.setAccountBalance(initialBalance);
+    }
+
+    @When("Danny now tops up by {int}")
+    public void danny_now_tops_up_by(Integer topUpAmount) {
+        System.out.println("Tops up by " +  topUpAmount);
+        //Act
+        danny.getAccount("EUR").addFunds(topUpAmount);
+    }
+
+    @Then("^The balance in his euro account should be (.*)$")
+    public void the_balance_in_his_euro_account_should_be(Integer newBalance) {
+        //Arrange
+        double expectedResult = newBalance;
+
+        //Act
+        double actualResult = (danny.getAccount("EUR").getBalance());
+        //Assert
+        Assert.assertEquals(expectedResult, actualResult,0);
+        System.out.println("The new final balance is: " + actualResult);
+    }
 }
