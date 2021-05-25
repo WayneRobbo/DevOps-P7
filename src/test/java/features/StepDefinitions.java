@@ -161,7 +161,7 @@ public class StepDefinitions {
     @When("Danny sends {int} using the correct cvvPin {int} to joe")
     public void danny_sends_using_the_correct_cvv_pin_to_joe(Integer sendAmount, Integer cvvPin) {
         //Act
-        danny.sendMoney(sendAmount,cvvPin,joe, topUpMethod);
+        danny.sendMoney(sendAmount, joe, topUpMethod);
     }
 
     @Then("Danny has a new revolut balance of {int}")
@@ -198,7 +198,7 @@ public class StepDefinitions {
     }
     @When("Danny sends {int} euro using the correct cvvPin {int} to joe")
     public void danny_sends_euro_using_the_correct_cvv_pin_to_joe(Integer sendAmount, Integer cvvPin){
-        danny.sendMoney(sendAmount,cvvPin,joe, topUpMethod);
+        danny.sendMoney(sendAmount, joe, topUpMethod);
 
     }
     @Then("Joe's account increases to {int}.")
@@ -235,7 +235,7 @@ public class StepDefinitions {
 
     @When("Danny sends {int} using the correct cvvPin {int} to joes account.")
     public void danny_sends_using_the_correct_cvv_pin_to_joes_account(Integer sendAmount, Integer cvvPin) {
-        danny.sendMoney(sendAmount,cvvPin,joe, topUpMethod);
+        danny.sendMoney(sendAmount, joe, topUpMethod);
     }
 
     @Then("Joe's account should remain the same with {int}.")

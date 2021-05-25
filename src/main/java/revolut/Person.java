@@ -44,7 +44,7 @@ public class Person {
         }
     }
 
-    public void sendMoney(double sendAmount, int cvvPin, Person name, PaymentService verifyPin){
+    public void sendMoney(double sendAmount, Person name, PaymentService verifyPin){
         //Get senders balance
         double balance = userAccounts.get("EUR").getBalance();
 
