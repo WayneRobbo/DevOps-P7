@@ -29,7 +29,6 @@ public class PaymentService {
     }
 
     public boolean pinApproval(DebitCard card, int cvvPin){
-
         if(card.getCvvPin() == cvvPin){
             setServicePin(true);
             return true;
@@ -37,5 +36,9 @@ public class PaymentService {
             setServicePin(false);
             return false;
         }
+    }
+
+    public void sendMoney(Account account, int sendAmount){
+
     }
 }

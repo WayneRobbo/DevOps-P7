@@ -22,4 +22,8 @@ public class Account{
     public void addFunds(double topUpAmount) {
         this.balance += topUpAmount;
     }
+
+    public void removeFunds(double removeAmount){
+        this.balance -= removeAmount;
+    }
 }
