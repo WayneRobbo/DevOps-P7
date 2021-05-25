@@ -2,7 +2,7 @@ package revolut;
 
 import java.util.Currency;
 
-public class Account {
+public class Account{
     private Currency accCurrency;
     private double balance;
 

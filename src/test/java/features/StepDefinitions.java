@@ -5,6 +5,8 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import revolut.Account;
+import revolut.DebitCard;
 import revolut.PaymentService;
 import revolut.Person;
 
@@ -14,11 +16,16 @@ public class StepDefinitions {
     //private String topUpMethod;
     PaymentService topUpMethod;
     Person danny;
+    DebitCard debitCard;
+    PaymentService cvvPin;
+
 
     @Before//Before hooks run before the first step in each scenario
     public void setUp(){
         //We can use this to setup test data for each scenario
         danny = new Person("Danny");
+        debitCard = new DebitCard(111);
+
     }
     @Given("Danny has {double} euro in his euro Revolut account")
     public void dannyHasEuroInHisEuroRevolutAccount(double startingBalance) {
@@ -64,7 +71,7 @@ public class StepDefinitions {
         System.out.println("The new final balance is: " + actualResult);
     }
 
-    // Additions to CA
+    // Additions to CA Data table
     @Given("Danny has a starting balance of {int}")
     public void danny_has_a_starting_balance_of(Integer initialBalance) {
         System.out.println("Give the Danny has starting balance of: " + initialBalance);
@@ -89,5 +96,49 @@ public class StepDefinitions {
         //Assert
         Assert.assertEquals(expectedResult, actualResult,0);
         System.out.println("The new final balance is: " + actualResult);
+    }
+
+    // CA Part 2 - implement the additional scenarios, failed topUp request.
+    @Given("Danny DebitCard has a CVV pin of {int}")
+    public void danny_debit_card_has_a_cvv_pin_of(Integer cvvPin) {
+        //Act
+        debitCard.setCvvPin(cvvPin);
+        System.out.println("Danny debit card cvv pin is: " + debitCard.getCvvPin());
+    }
+
+    @Given("Danny has a revolut balance of {int}")
+    public void danny_has_a_revolut_balance_of(Integer initialBalance) {
+        //Act
+        danny.setAccountBalance(initialBalance);
+        System.out.println("Revolut balance: " + danny.getAccountBalance("EUR"));
+    }
+
+    @When("Danny enters top amount of {int} using a CVV of {int}")
+    public void danny_enters_top_amount_of_using_a_cvv_of(Integer topUpAmount, Integer cvvPin){
+        //Act
+        danny.topUpAccount(topUpAmount,cvvPin, debitCard, topUpMethod);
+    }
+
+    @Then("The revolut account balance remains {int}")
+    public void the_revolut_account_balance_remains(Integer newBalance) {
+        //Arrange
+        double expectedResult = newBalance;
+        //Act
+        double actualResult = danny.getAccountBalance("EUR");
+        //Assert
+        Assert.assertEquals(expectedResult, actualResult,0);
+        System.out.println("Danny's balance is: " + actualResult);
+    }
+
+    // CA Part 2 - implement the additional scenarios, successful topUp request.
+    @Then("The revolut account balance increase to {int}")
+    public void the_revolut_account_balance_increase_to(Integer newBalance) {
+        //Arrange
+        double expectedResult = newBalance;
+        //Act
+        double actualResult = danny.getAccountBalance("EUR");
+        //Assert
+        Assert.assertEquals(expectedResult, actualResult,0);
+        System.out.println("Danny's balance is: " + actualResult);
     }
 }

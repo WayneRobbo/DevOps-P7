@@ -41,4 +41,16 @@ Feature: TopUp Account
 
     #The scenarios below will need a payment service that accepts or rejects a request to add funds
     Scenario: Payment service rejects the request
+      Given Danny DebitCard has a CVV pin of 111
+      And Danny has a revolut balance of 50
+      And Danny selects his DebitCard as his topUp method
+      When Danny enters top amount of 25 using a CVV of 888
+      Then The revolut account balance remains 50
+
+
     Scenario: Payment service accepts the request
+      Given Danny DebitCard has a CVV pin of 111
+      And Danny has a revolut balance of 50
+      And Danny selects his DebitCard as his topUp method
+      When Danny enters top amount of 50 using a CVV of 111
+      Then The revolut account balance increase to 100

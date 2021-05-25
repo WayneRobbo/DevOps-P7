@@ -29,6 +29,19 @@ public class Person {
     }
 
     public Account getAccount(String account) {
+
         return userAccounts.get(account);
+    }
+
+    public void topUpAccount(double topUpAmount, int cvvPin, DebitCard card, PaymentService topUpRequest){
+
+        if(topUpRequest.pinApproval(card,cvvPin)){
+            double tempBalance = userAccounts.get("EUR").getBalance() + topUpAmount;
+            this.setAccountBalance(tempBalance);
+            System.out.println("Successful cvvPin verification, top up balance successful");
+
+        }else{
+            System.out.println("Invalid cvvPin for debit card, attempted top up failed");
+        }
     }
 }
