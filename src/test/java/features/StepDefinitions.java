@@ -214,7 +214,7 @@ public class StepDefinitions {
         System.out.println("Joe's account balance:" + actualResult);
     }
 
-    //Test insufficient amount in senders account.
+    //Test insufficient amount in senders account. Check senders amount after action.
     @Given("Danny selects {int} euro to send to a friend.")
     public void danny_selects_euro_to_send_to_a_friend(Integer amount) {
         System.out.println("Danny attempts to send" + amount);
@@ -233,4 +233,27 @@ public class StepDefinitions {
         System.out.println("Danny's account balance:" + actualResult);
     }
 
+    @When("Danny sends {int} using the correct cvvPin {int} to joes account.")
+    public void danny_sends_using_the_correct_cvv_pin_to_joes_account(Integer sendAmount, Integer cvvPin) {
+        danny.sendMoney(sendAmount,cvvPin,joe, topUpMethod);
+    }
+
+    @Then("Joe's account should remain the same with {int}.")
+    public void joe_s_account_should_remain_the_same_with(Integer accountBalance) {
+        //Arrange
+        double expectedResult = accountBalance;
+
+        //Act
+        double actualResult = joe.getAccountBalance("EUR");
+
+        //Assert
+        Assert.assertEquals(expectedResult, actualResult, 0);
+        System.out.println("Joe's account balance:" + actualResult);
+    }
+
+    // Data Table
+    @Given("Danny send money to joe.")
+    public void danny_send_money_to_joe() {
+        System.out.println("Danny sending money");
+    }
 }

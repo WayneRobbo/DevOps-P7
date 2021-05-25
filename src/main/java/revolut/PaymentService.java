@@ -38,7 +38,4 @@ public class PaymentService {
         }
     }
 
-    public void sendMoney(Account account, int sendAmount){
-
-    }
 }

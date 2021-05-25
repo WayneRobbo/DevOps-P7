@@ -62,7 +62,7 @@ public class Person {
 
             System.out.println("Senders balance after sending funds:" + newBalance);
         }else{
-            System.out.println("further testing");
+            System.out.println("Insufficient Funds in senders account");
         }
     }
 }
