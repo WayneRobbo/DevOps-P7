@@ -2,9 +2,9 @@ name: Java with Gradle
 
 on:
   push:
-    branches: [ main , WayneRobbo-workflowFile ]
+    branches: [ main , FeatureBranch ]
   pull_request:
-    branches: [ main , WayneRobbo-workflowFile ]
+    branches: [ main , FeatureBranch ]
 
 jobs:
   build:
@@ -18,15 +18,14 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-    - name: Grant execute permission for gradlew
+        
+    - name: Build with gradle
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
 
   test:
-    
     runs-on: ubuntu-latest
-    
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
@@ -34,7 +33,8 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-    - name: Grant execute permission for gradlew
+        
+    - name: Build with gradle
       run: chmod +x gradlew
     - name: Run Gradle tests
       run: ./gradlew test
