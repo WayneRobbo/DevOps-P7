@@ -1,5 +1,10 @@
 package revolut;
 
+/* Wayne Robinson
+   L00162024
+   26/05/2021
+ */
+
 import java.util.Currency;
 import java.util.HashMap;
 
