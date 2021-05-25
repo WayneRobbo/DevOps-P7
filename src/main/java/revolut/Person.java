@@ -20,8 +20,8 @@ public class Person {
         userAccounts.put("EUR", euroAccount);
     }
 
-    public void setAccountBalance(double startingBlanace) {
-        userAccounts.get("EUR").setBalance(startingBlanace);
+    public void setAccountBalance(double startingBalance) {
+        userAccounts.get("EUR").setBalance(startingBalance);
     }
 
     public double getAccountBalance(String eur) {
@@ -29,6 +29,40 @@ public class Person {
     }
 
     public Account getAccount(String account) {
+
         return userAccounts.get(account);
+    }
+
+    public void topUpAccount(double topUpAmount, int cvvPin, DebitCard card, PaymentService verifyPin){
+        if(verifyPin.pinApproval(card,cvvPin)){
+            double tempBalance = userAccounts.get("EUR").getBalance() + topUpAmount;
+            this.setAccountBalance(tempBalance);
+            System.out.println("Successful cvvPin verification, top up balance successful");
+
+        }else{
+            System.out.println("Invalid cvvPin for debit card, attempted top up failed");
+        }
+    }
+
+    public void sendMoney(double sendAmount, Person name, PaymentService verifyPin){
+        //Get senders balance
+        double balance = userAccounts.get("EUR").getBalance();
+
+        //Verify if amount being sent is available in the balance
+        if(balance >= sendAmount){
+
+            //Removes funds from sender account
+            userAccounts.get("EUR").removeFunds(sendAmount);
+
+            //Get receivers balance
+            double newBalance = userAccounts.get("EUR").getBalance();
+
+            //Add funds to revivers account
+            name.userAccounts.get("EUR").addFunds(sendAmount);
+
+            System.out.println("Senders balance after sending funds:" + newBalance);
+        }else{
+            System.out.println("Insufficient Funds in senders account");
+        }
     }
 }

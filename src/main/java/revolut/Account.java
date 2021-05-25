@@ -2,7 +2,7 @@ package revolut;
 
 import java.util.Currency;
 
-public class Account {
+public class Account{
     private Currency accCurrency;
     private double balance;
 
@@ -21,5 +21,9 @@ public class Account {
 
     public void addFunds(double topUpAmount) {
         this.balance += topUpAmount;
+    }
+
+    public void removeFunds(double removeAmount){
+        this.balance -= removeAmount;
     }
 }
