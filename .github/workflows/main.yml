@@ -8,9 +8,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
@@ -18,8 +16,7 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-        
-    - name: Build with gradle
+    - name: Cache Gradle packages
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
@@ -33,8 +30,7 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
-        
     - name: Build with gradle
       run: chmod +x gradlew
-    - name: Run Gradle tests
+    - name: Run Gradle test
       run: ./gradlew test
